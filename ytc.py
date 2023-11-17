@@ -1,10 +1,28 @@
 from fastapi import FastAPI, Form, Query
 from typing import Annotated
 from urllib.parse import urlparse, parse_qs
+from fastapi.middleware.cors import CORSMiddleware
 import fetcher
 import analyzer
 
 app = FastAPI()
+
+origins = [
+    "*",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+
+
+
 
 @app.get("/sentiment")
 async def sentiment(URL: str = Query(...,title="User Input",description="Input String")):

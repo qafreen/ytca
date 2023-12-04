@@ -1,17 +1,30 @@
 
 from textblob import TextBlob
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from flair.data import Sentence
+from flair.nn import Classifier
+tagger = Classifier.load('sentiment')
+
+vaderAnalyzer = SentimentIntensityAnalyzer()
 
 def analyze(commentList, model):
     polarity = list(map(model, commentList))
     return polarity
 
+def vaderModel(comment):
+    return vaderAnalyzer.polarity_scores(comment)['compound']
+
+def flairModel(comment):
+    sentence = Sentence(comment)
+    tagger.predict(sentence)
+    return 1 if str(sentence).split(' ')[-2] == "POSITIVE" else -1 
 
 def textBlobModel(comment):
     return TextBlob(comment).sentiment.polarity
 
 def do_mafs(polarities):
-    negative_thresh = -0.2
-    positive_thresh = 0.2
+    negative_thresh = -0.1
+    positive_thresh = 0.1
     
     count_p = count_n = count_ne = 0
     

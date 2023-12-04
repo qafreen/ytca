@@ -1,1 +1,1 @@
-from .analyzer import analyze, do_mafs, textBlobModel
+from .analyzer import analyze, do_mafs, textBlobModel, vaderModel, flairModel

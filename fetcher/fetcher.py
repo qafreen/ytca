@@ -13,12 +13,12 @@ api_version = "v3"
 youtube = googleapiclient.discovery.build(
     api_service_name, api_version, developerKey = DEVELOPER_KEY)
 
-def fetch(videoId): #returns list of 100 relevant comments
+def fetch(videoId,order): #returns list of 100 relevant comments
 
     request = youtube.commentThreads().list(
         part="snippet",
         maxResults=100,
-        order="relevance",
+        order=order,
         videoId=videoId
     )
 

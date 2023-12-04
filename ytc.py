@@ -29,8 +29,8 @@ async def sentiment(URL: str = Query(...,title="User Input",description="Input S
     parse_result = urlparse(URL)
     final = parse_qs(parse_result.query)
     vid = final['v'][0]
-    comment = fetcher.fetch(vid)
-    polarities = analyzer.analyze(comment, analyzer.textBlobModel)
+    comment = fetcher.fetch(vid,"time")# relevance or time
+    polarities = analyzer.analyze(comment, analyzer.flairModel)
     result = analyzer.do_mafs(polarities)
     return{
         "Video Id": vid,

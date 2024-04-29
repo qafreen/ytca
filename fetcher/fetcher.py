@@ -23,7 +23,6 @@ def fetch(videoId,order): #returns list of 100 relevant comments
     )
 
     response = request.execute()
-    
     commentList = []
     for item in response['items']:
         commentText = item['snippet']['topLevelComment']['snippet']['textOriginal']
@@ -31,5 +30,23 @@ def fetch(videoId,order): #returns list of 100 relevant comments
     
     return commentList
 
+def getPopularVideos(): 
+    request = youtube.videos().list(
+        part="id",
+        chart="mostPopular",
+        maxResults=10
+    )
+    response = request.execute()
+    trending_videos = []
+    for item in response['items']:
+        video_id = item['id']
+        video_url = f"https://www.youtube.com/watch?v={video_id}"
+        trending_videos.append(video_url)
+
+    return trending_videos
+    
+    
+
 
 #print(fetch('i1aKpceiIcY'))
+#print(getPopularVideos())

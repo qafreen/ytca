@@ -3,7 +3,7 @@ from typing import Annotated
 from urllib.parse import urlparse, parse_qs
 from fastapi.middleware.cors import CORSMiddleware
 import fetcher
-# import analyzer
+import analyzer
 
 app = FastAPI()
 
@@ -36,7 +36,7 @@ async def sentiment(URL: str = Query(...,title="User Input",description="Input S
         "Video Id": vid,
         "Result": result
     }
-@app.get("/getPopularVideos")
+@app.get("/PopularVideos")
 async def popularVideos():
     u=fetcher.getPopularVideos()
     print("Hello")

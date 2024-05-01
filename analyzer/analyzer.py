@@ -3,6 +3,10 @@ from textblob import TextBlob
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from flair.data import Sentence
 from flair.nn import Classifier
+from . import my_model
+
+model = my_model.init()
+
 tagger = Classifier.load('sentiment')
 
 vaderAnalyzer = SentimentIntensityAnalyzer()
@@ -21,6 +25,10 @@ def flairModel(comment):
 
 def textBlobModel(comment):
     return TextBlob(comment).sentiment.polarity
+
+
+def use_custom_model(comment_list):
+    return list(model.predict(comment_list))
 
 def do_mafs(polarities):
     negative_thresh = -0.1
@@ -43,8 +51,8 @@ def do_mafs(polarities):
 
 
 # commentList = ['this is great',"i don't like it",'i am sam']
-# p = analyze(commentList,model)
-#print(do_mafs(p))
+# p = list(model.predict(commentList))
+# print(do_mafs(p))
 
 
 
